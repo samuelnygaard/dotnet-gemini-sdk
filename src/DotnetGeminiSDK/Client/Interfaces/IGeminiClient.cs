@@ -15,53 +15,53 @@ namespace DotnetGeminiSDK.Client.Interfaces
     {
         Task<GeminiMessageResponse?> TextPrompt(
             string message,
-            string? systemInstruction = null,
             GenerationConfig? generationConfig = null,
-            SafetySetting? safetySetting = null
+            SafetySetting? safetySetting = null,
+            string? systemInstruction = null
         );
 
         Task<GeminiMessageResponse?> TextPrompt(
             List<Content> messages,
-            string? systemInstruction = null,
             GenerationConfig? generationConfig = null,
-            SafetySetting? safetySetting = null
+            SafetySetting? safetySetting = null,
+            string? systemInstruction = null
         );
 
         Task<GeminiCountTokenMessageResponse?> CountTokens(
             string message,
-            string? systemInstruction = null,
             GenerationConfig? generationConfig = null,
-            SafetySetting? safetySetting = null
+            SafetySetting? safetySetting = null,
+            string? systemInstruction = null
         );
 
         Task<GeminiCountTokenMessageResponse?> CountTokens(
             List<string> messages,
-            string? systemInstruction = null,
             GenerationConfig? generationConfig = null,
-            SafetySetting? safetySetting = null
+            SafetySetting? safetySetting = null,
+            string? systemInstruction = null
         );
 
         Task<GeminiCountTokenMessageResponse?> CountTokens(
             List<Content> messages,
-            string? systemInstruction = null,
             GenerationConfig? generationConfig = null,
-            SafetySetting? safetySetting = null
+            SafetySetting? safetySetting = null,
+            string? systemInstruction = null
         );
 
         Task StreamTextPrompt(
             string message,
             Action<string?> callback,
-            string? systemInstruction = null,
             GenerationConfig? generationConfig = null,
-            SafetySetting? safetySetting = null
+            SafetySetting? safetySetting = null,
+            string? systemInstruction = null
         );
 
         Task StreamTextPrompt(
             List<Content> messages,
             Action<string?> callback,
-            string? systemInstruction = null,
             GenerationConfig? generationConfig = null,
-            SafetySetting? safetySetting = null
+            SafetySetting? safetySetting = null,
+            string? systemInstruction = null
         );
 
         Task<GeminiMessageResponse?> ImagePrompt(string message, byte[] image, ImageMimeType imageMimeType);

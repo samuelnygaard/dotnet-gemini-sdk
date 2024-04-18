@@ -57,9 +57,9 @@ namespace DotnetGeminiSDK.Client
         /// <exception cref="Exception"></exception>
         public async Task<GeminiMessageResponse?> TextPrompt(
             string message,
-            string? systemInstruction = null,
             GenerationConfig? generationConfig = null,
-            SafetySetting? safetySetting = null)
+            SafetySetting? safetySetting = null,
+            string? systemInstruction = null)
         {
             try
             {
@@ -91,9 +91,9 @@ namespace DotnetGeminiSDK.Client
         /// <exception cref="Exception"></exception>
         public async Task<GeminiMessageResponse?> TextPrompt(
             List<Content> messages,
-            string? systemInstruction = null,
             GenerationConfig? generationConfig = null,
-            SafetySetting? safetySetting = null)
+            SafetySetting? safetySetting = null,
+            string? systemInstruction = null)
         {
             if (!messages.Any()) throw new ArgumentException("Messages cannot be empty.");
 
@@ -117,9 +117,9 @@ namespace DotnetGeminiSDK.Client
         /// <returns>Returns a GeminiMessageResponse with the counted tokens</returns>
         /// <exception cref="ArgumentException"></exception>
         public async Task<GeminiCountTokenMessageResponse?> CountTokens(string message,
-            string? systemInstruction = null,
             GenerationConfig? generationConfig = null,
-            SafetySetting? safetySetting = null)
+            SafetySetting? safetySetting = null,
+            string? systemInstruction = null)
         {
             if (string.IsNullOrEmpty(message)) throw new ArgumentException("Message cannot be empty.");
 
@@ -143,7 +143,7 @@ namespace DotnetGeminiSDK.Client
         /// <returns>Returns a GeminiMessageResponse with the counted tokens</returns>
         /// <exception cref="ArgumentException"></exception>
         public async Task<GeminiCountTokenMessageResponse?> CountTokens(List<string> messages,
-            string? systemInstruction = null, GenerationConfig? generationConfig = null, SafetySetting? safetySetting = null)
+            GenerationConfig? generationConfig = null, SafetySetting? safetySetting = null, string? systemInstruction = null)
         {
             if (!messages.Any()) throw new ArgumentException("Message cannot be empty.");
 
@@ -167,7 +167,7 @@ namespace DotnetGeminiSDK.Client
         /// <returns>Returns a GeminiMessageResponse with the counted tokens</returns>
         /// <exception cref="ArgumentException"></exception>
         public async Task<GeminiCountTokenMessageResponse?> CountTokens(List<Content> messages,
-            string? systemInstruction = null, GenerationConfig? generationConfig = null, SafetySetting? safetySetting = null)
+            GenerationConfig? generationConfig = null, SafetySetting? safetySetting = null, string? systemInstruction = null)
         {
             if (!messages.Any()) throw new ArgumentException("Message cannot be empty.");
 
@@ -196,8 +196,9 @@ namespace DotnetGeminiSDK.Client
         public Task StreamTextPrompt(
             string message,
             Action<string> callback,
-            string? systemInstruction = null, GenerationConfig? generationConfig = null,
-            SafetySetting? safetySetting = null)
+            GenerationConfig? generationConfig = null,
+            SafetySetting? safetySetting = null,
+            string? systemInstruction = null)
         {
             if (string.IsNullOrEmpty(message)) throw new ArgumentException("Message cannot be empty.");
 
@@ -226,8 +227,9 @@ namespace DotnetGeminiSDK.Client
         public Task StreamTextPrompt(
             List<Content> messages,
             Action<string> callback,
-            string? systemInstruction = null, GenerationConfig? generationConfig = null,
-            SafetySetting? safetySetting = null)
+            GenerationConfig? generationConfig = null,
+            SafetySetting? safetySetting = null,
+            string? systemInstruction = null)
         {
             if (!messages.Any()) throw new ArgumentException("Messages cannot be empty.");
 
