@@ -50,12 +50,14 @@ namespace DotnetGeminiSDK.Client
         /// REF: https://ai.google.dev/tutorials/rest_quickstart#text-only_input
         /// </summary>
         /// <param name="message"></param>
+        /// <param name="systemInstruction">A optional system instruction</param>
         /// <param name="generationConfig">A optional generation config</param>
         /// <param name="safetySetting">A optional safety setting</param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
         public async Task<GeminiMessageResponse?> TextPrompt(
             string message,
+            string? systemInstruction = null,
             GenerationConfig? generationConfig = null,
             SafetySetting? safetySetting = null)
         {
@@ -64,7 +66,7 @@ namespace DotnetGeminiSDK.Client
                 if (string.IsNullOrEmpty(message)) throw new ArgumentException("Message cannot be empty.");
 
                 var promptUrl = $"{_config.TextBaseUrl}:generateContent?key={_config.ApiKey}";
-                var request = BuildGeminiRequest(message, generationConfig, safetySetting);
+                var request = BuildGeminiRequest(message, systemInstruction, generationConfig, safetySetting);
 
                 return await _apiRequester.PostAsync<GeminiMessageResponse>(promptUrl, request);
             }
@@ -81,6 +83,7 @@ namespace DotnetGeminiSDK.Client
         /// REF: https://ai.google.dev/tutorials/rest_quickstart#text-only_input
         /// </summary>
         /// <param name="messages">Messages to be processed as content model</param>
+        /// <param name="systemInstruction">A optional system instruction</param>
         /// <param name="generationConfig">A optional generation config</param>
         /// <param name="safetySetting">A optional safety setting</param>
         /// <returns>Returns a GeminiMessageResponse with all the response fields from api</returns>
@@ -88,13 +91,14 @@ namespace DotnetGeminiSDK.Client
         /// <exception cref="Exception"></exception>
         public async Task<GeminiMessageResponse?> TextPrompt(
             List<Content> messages,
+            string? systemInstruction = null,
             GenerationConfig? generationConfig = null,
             SafetySetting? safetySetting = null)
         {
             if (!messages.Any()) throw new ArgumentException("Messages cannot be empty.");
 
             var promptUrl = $"{_config.TextBaseUrl}:generateContent?key={_config.ApiKey}";
-            var request = BuildGeminiRequest(messages, generationConfig, safetySetting);
+            var request = BuildGeminiRequest(messages, systemInstruction, generationConfig, safetySetting);
 
             return await _apiRequester.PostAsync<GeminiMessageResponse>(promptUrl, request);
         }
@@ -107,18 +111,20 @@ namespace DotnetGeminiSDK.Client
         /// REF: https://ai.google.dev/tutorials/rest_quickstart#count_tokens
         /// </summary>
         /// <param name="message">Message to be processed</param>
+        /// <param name="systemInstruction">A optional system instruction</param>
         /// <param name="generationConfig">A optional generation config</param>
         /// <param name="safetySetting">A optional safety setting</param>
         /// <returns>Returns a GeminiMessageResponse with the counted tokens</returns>
         /// <exception cref="ArgumentException"></exception>
         public async Task<GeminiCountTokenMessageResponse?> CountTokens(string message,
+            string? systemInstruction = null,
             GenerationConfig? generationConfig = null,
             SafetySetting? safetySetting = null)
         {
             if (string.IsNullOrEmpty(message)) throw new ArgumentException("Message cannot be empty.");
 
             var promptUrl = $"{_config.TextBaseUrl}:countTokens?key={_config.ApiKey}";
-            var request = BuildGeminiRequest(message, generationConfig, safetySetting);
+            var request = BuildGeminiRequest(message, systemInstruction, generationConfig, safetySetting);
 
             return await _apiRequester.PostAsync<GeminiCountTokenMessageResponse>(promptUrl, request);
         }
@@ -131,17 +137,18 @@ namespace DotnetGeminiSDK.Client
         /// REF: https://ai.google.dev/tutorials/rest_quickstart#count_tokens
         /// </summary>
         /// <param name="messages">Messages to be processed</param>
+        /// <param name="systemInstruction">A optional system instruction</param>
         /// <param name="generationConfig">A optional generation config</param>
         /// <param name="safetySetting">A optional safety setting</param>
         /// <returns>Returns a GeminiMessageResponse with the counted tokens</returns>
         /// <exception cref="ArgumentException"></exception>
         public async Task<GeminiCountTokenMessageResponse?> CountTokens(List<string> messages,
-            GenerationConfig? generationConfig = null, SafetySetting? safetySetting = null)
+            string? systemInstruction = null, GenerationConfig? generationConfig = null, SafetySetting? safetySetting = null)
         {
             if (!messages.Any()) throw new ArgumentException("Message cannot be empty.");
 
             var promptUrl = $"{_config.TextBaseUrl}:countTokens?key={_config.ApiKey}";
-            var request = BuildGeminiRequest(messages, generationConfig, safetySetting);
+            var request = BuildGeminiRequest(messages, systemInstruction, generationConfig, safetySetting);
 
             return await _apiRequester.PostAsync<GeminiCountTokenMessageResponse>(promptUrl, request);
         }
@@ -154,17 +161,18 @@ namespace DotnetGeminiSDK.Client
         /// REF: https://ai.google.dev/tutorials/rest_quickstart#count_tokens
         /// </summary>
         /// <param name="messages">Messages to be processed as content model</param>
+        /// <param name="systemInstruction">A optional system instruction</param>
         /// <param name="generationConfig">A optional generation config</param>
         /// <param name="safetySetting">A optional safety setting</param>
         /// <returns>Returns a GeminiMessageResponse with the counted tokens</returns>
         /// <exception cref="ArgumentException"></exception>
         public async Task<GeminiCountTokenMessageResponse?> CountTokens(List<Content> messages,
-            GenerationConfig? generationConfig = null, SafetySetting? safetySetting = null)
+            string? systemInstruction = null, GenerationConfig? generationConfig = null, SafetySetting? safetySetting = null)
         {
             if (!messages.Any()) throw new ArgumentException("Message cannot be empty.");
 
             var promptUrl = $"{_config.TextBaseUrl}:countTokens?key={_config.ApiKey}";
-            var request = BuildGeminiRequest(messages, generationConfig, safetySetting);
+            var request = BuildGeminiRequest(messages, systemInstruction, generationConfig, safetySetting);
 
             return await _apiRequester.PostAsync<GeminiCountTokenMessageResponse>(promptUrl, request);
         }
@@ -178,6 +186,7 @@ namespace DotnetGeminiSDK.Client
         /// REF: https://ai.google.dev/tutorials/rest_quickstart#text-only_input
         /// </summary>
         /// <param name="message">Message to be processed as content model</param>
+        /// <param name="systemInstruction">A optional system instruction</param>
         /// <param name="generationConfig">A optional generation config</param>
         /// <param name="safetySetting">A optional safety setting</param>
         /// <param name="callback"> A callback to be called when the response is received</param>
@@ -187,13 +196,13 @@ namespace DotnetGeminiSDK.Client
         public Task StreamTextPrompt(
             string message,
             Action<string> callback,
-            GenerationConfig? generationConfig = null,
+            string? systemInstruction = null, GenerationConfig? generationConfig = null,
             SafetySetting? safetySetting = null)
         {
             if (string.IsNullOrEmpty(message)) throw new ArgumentException("Message cannot be empty.");
 
             var promptUrl = $"{_config.TextBaseUrl}:streamGenerateContent?key={_config.ApiKey}";
-            var request = BuildGeminiRequest(message, generationConfig, safetySetting);
+            var request = BuildGeminiRequest(message, systemInstruction, generationConfig, safetySetting);
 
             return _apiRequester.PostStream(promptUrl, request, callback);
         }
@@ -207,6 +216,7 @@ namespace DotnetGeminiSDK.Client
         /// REF: https://ai.google.dev/tutorials/rest_quickstart#text-only_input
         /// </summary>
         /// <param name="messages">Messages to be processed as content model</param>
+        /// <param name="systemInstruction">A optional system instruction</param>
         /// <param name="generationConfig">A optional generation config</param>
         /// <param name="safetySetting">A optional safety setting</param>
         /// <param name="callback"> A callback to be called when the response is received</param>
@@ -216,13 +226,13 @@ namespace DotnetGeminiSDK.Client
         public Task StreamTextPrompt(
             List<Content> messages,
             Action<string> callback,
-            GenerationConfig? generationConfig = null,
+            string? systemInstruction = null, GenerationConfig? generationConfig = null,
             SafetySetting? safetySetting = null)
         {
             if (!messages.Any()) throw new ArgumentException("Messages cannot be empty.");
 
             var promptUrl = $"{_config.TextBaseUrl}:streamGenerateContent?key={_config.ApiKey}";
-            var request = BuildGeminiRequest(messages, generationConfig, safetySetting);
+            var request = BuildGeminiRequest(messages, systemInstruction, generationConfig, safetySetting);
 
             return _apiRequester.PostStream(promptUrl, request, callback);
         }
@@ -408,6 +418,7 @@ namespace DotnetGeminiSDK.Client
         /// <param name="message">Message to be processed</param>
         /// <param name="base64Image">Base64 image to process</param>
         /// <param name="mimeType">Mime type of the image</param>
+        /// <param name="systemInstruction">A optional system instruction</param>
         /// <param name="generationConfig">A optional generation config</param>
         /// <param name="safetySetting">A optional safety setting</param>
         /// <returns>A GeminiMessageRequest built to sending for api</returns>
@@ -415,6 +426,7 @@ namespace DotnetGeminiSDK.Client
             string message,
             string base64Image,
             string mimeType,
+            string? systemInstruction = null,
             GenerationConfig? generationConfig = null,
             SafetySetting? safetySetting = null)
         {
@@ -442,6 +454,7 @@ namespace DotnetGeminiSDK.Client
                             }
                         }
                     },
+                SystemInstruction = BuildSystemInstructionContent(systemInstruction),
                 GenerationConfig = generationConfig,
                 SafetySetting = safetySetting
             };
@@ -451,19 +464,36 @@ namespace DotnetGeminiSDK.Client
         /// Build a GeminiMessageRequest object from a string message
         /// </summary>
         /// <param name="messages">Messages to be processed</param>
+        /// <param name="systemInstruction">A optional system instruction</param>
         /// <param name="generationConfig">A optional generation config</param>
         /// <param name="safetySetting">A optional safety setting</param>
         /// <returns>A request containing GeminiMessageRequest</returns>
         private static GeminiMessageRequest BuildGeminiRequest(
             List<Content> messages,
+            string? systemInstruction = null,
             GenerationConfig? generationConfig = null,
             SafetySetting? safetySetting = null)
         {
             return new GeminiMessageRequest
             {
                 Contents = messages,
+                SystemInstruction = BuildSystemInstructionContent(systemInstruction),
                 GenerationConfig = generationConfig,
                 SafetySetting = safetySetting
+            };
+        }
+
+        /// <summary>
+        /// Build a SystemInstruction object from a string system instruction
+        /// </summary>
+        /// <param name="systemInstruction">System instruction to be added to the request</param>
+        /// <returns>A Content object containing the system instruction</returns>
+        private static Content? BuildSystemInstructionContent(string? systemInstruction)
+        {
+            if (systemInstruction == null) return null;
+            return new Content
+            {
+                Parts = new List<Part> { new Part { Text = systemInstruction } }
             };
         }
 
@@ -471,11 +501,13 @@ namespace DotnetGeminiSDK.Client
         /// Build a GeminiMessageRequest object from a string message
         /// </summary>
         /// <param name="message">Message to be processed</param>
+        /// <param name="systemInstruction">A optional system instruction</param>
         /// <param name="generationConfig">A optional generation config</param>
         /// <param name="safetySetting">A optional safety setting</param>
         /// <returns>A request containing GeminiMessageRequest</returns>
         private static GeminiMessageRequest BuildGeminiRequest(
             string message,
+            string? systemInstruction = null,
             GenerationConfig? generationConfig = null,
             SafetySetting? safetySetting = null)
         {
@@ -496,6 +528,7 @@ namespace DotnetGeminiSDK.Client
                                 }
                         }
                     },
+                SystemInstruction = BuildSystemInstructionContent(systemInstruction),
                 GenerationConfig = generationConfig,
                 SafetySetting = safetySetting
             };
@@ -505,11 +538,13 @@ namespace DotnetGeminiSDK.Client
         /// Build a GeminiMessageRequest object from a list of string messages
         /// </summary>
         /// <param name="messages">Messages to be processed</param>
+        /// <param name="systemInstruction">A optional system instruction</param>
         /// <param name="generationConfig">A optional generation config</param>
         /// <param name="safetySetting">A optional safety setting</param>
         /// <returns></returns>
         private static GeminiMessageRequest BuildGeminiRequest(
             IEnumerable<string> messages,
+            string? systemInstruction = null,
             GenerationConfig? generationConfig = null,
             SafetySetting? safetySetting = null)
         {
@@ -521,6 +556,7 @@ namespace DotnetGeminiSDK.Client
             return new GeminiMessageRequest
             {
                 Contents = new List<Content> { content },
+                SystemInstruction = BuildSystemInstructionContent(systemInstruction),
                 GenerationConfig = generationConfig,
                 SafetySetting = safetySetting
             };

@@ -22,6 +22,9 @@ namespace DotnetGeminiSDK.Model.Request
     public class GeminiMessageRequest
     {
         [JsonProperty("contents")] public List<Content> Contents { get; set; }
+        
+        [JsonProperty("systemInstruction", NullValueHandling = NullValueHandling.Ignore)]
+        public Content? SystemInstruction { get; set; }
 
         [JsonProperty("generationConfig", NullValueHandling = NullValueHandling.Ignore)]
         public GenerationConfig? GenerationConfig { get; set; }

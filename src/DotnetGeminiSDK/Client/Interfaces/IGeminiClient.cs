@@ -15,30 +15,35 @@ namespace DotnetGeminiSDK.Client.Interfaces
     {
         Task<GeminiMessageResponse?> TextPrompt(
             string message,
+            string? systemInstruction = null,
             GenerationConfig? generationConfig = null,
             SafetySetting? safetySetting = null
         );
 
         Task<GeminiMessageResponse?> TextPrompt(
             List<Content> messages,
+            string? systemInstruction = null,
             GenerationConfig? generationConfig = null,
             SafetySetting? safetySetting = null
         );
 
         Task<GeminiCountTokenMessageResponse?> CountTokens(
             string message,
+            string? systemInstruction = null,
             GenerationConfig? generationConfig = null,
             SafetySetting? safetySetting = null
         );
 
         Task<GeminiCountTokenMessageResponse?> CountTokens(
             List<string> messages,
+            string? systemInstruction = null,
             GenerationConfig? generationConfig = null,
             SafetySetting? safetySetting = null
         );
 
         Task<GeminiCountTokenMessageResponse?> CountTokens(
             List<Content> messages,
+            string? systemInstruction = null,
             GenerationConfig? generationConfig = null,
             SafetySetting? safetySetting = null
         );
@@ -46,6 +51,7 @@ namespace DotnetGeminiSDK.Client.Interfaces
         Task StreamTextPrompt(
             string message,
             Action<string?> callback,
+            string? systemInstruction = null,
             GenerationConfig? generationConfig = null,
             SafetySetting? safetySetting = null
         );
@@ -53,6 +59,7 @@ namespace DotnetGeminiSDK.Client.Interfaces
         Task StreamTextPrompt(
             List<Content> messages,
             Action<string?> callback,
+            string? systemInstruction = null,
             GenerationConfig? generationConfig = null,
             SafetySetting? safetySetting = null
         );
