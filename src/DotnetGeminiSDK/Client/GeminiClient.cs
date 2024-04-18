@@ -66,7 +66,7 @@ namespace DotnetGeminiSDK.Client
                 if (string.IsNullOrEmpty(message)) throw new ArgumentException("Message cannot be empty.");
 
                 var promptUrl = $"{_config.TextBaseUrl}:generateContent?key={_config.ApiKey}";
-                var request = BuildGeminiRequest(message, systemInstruction, generationConfig, safetySetting);
+                var request = BuildGeminiRequest(message, generationConfig, safetySetting, systemInstruction);
 
                 return await _apiRequester.PostAsync<GeminiMessageResponse>(promptUrl, request);
             }
@@ -98,7 +98,7 @@ namespace DotnetGeminiSDK.Client
             if (!messages.Any()) throw new ArgumentException("Messages cannot be empty.");
 
             var promptUrl = $"{_config.TextBaseUrl}:generateContent?key={_config.ApiKey}";
-            var request = BuildGeminiRequest(messages, systemInstruction, generationConfig, safetySetting);
+            var request = BuildGeminiRequest(messages, generationConfig, safetySetting, systemInstruction);
 
             return await _apiRequester.PostAsync<GeminiMessageResponse>(promptUrl, request);
         }
@@ -124,7 +124,7 @@ namespace DotnetGeminiSDK.Client
             if (string.IsNullOrEmpty(message)) throw new ArgumentException("Message cannot be empty.");
 
             var promptUrl = $"{_config.TextBaseUrl}:countTokens?key={_config.ApiKey}";
-            var request = BuildGeminiRequest(message, systemInstruction, generationConfig, safetySetting);
+            var request = BuildGeminiRequest(message, generationConfig, safetySetting, systemInstruction);
 
             return await _apiRequester.PostAsync<GeminiCountTokenMessageResponse>(promptUrl, request);
         }
@@ -148,7 +148,7 @@ namespace DotnetGeminiSDK.Client
             if (!messages.Any()) throw new ArgumentException("Message cannot be empty.");
 
             var promptUrl = $"{_config.TextBaseUrl}:countTokens?key={_config.ApiKey}";
-            var request = BuildGeminiRequest(messages, systemInstruction, generationConfig, safetySetting);
+            var request = BuildGeminiRequest(messages, generationConfig, safetySetting, systemInstruction);
 
             return await _apiRequester.PostAsync<GeminiCountTokenMessageResponse>(promptUrl, request);
         }
@@ -172,7 +172,7 @@ namespace DotnetGeminiSDK.Client
             if (!messages.Any()) throw new ArgumentException("Message cannot be empty.");
 
             var promptUrl = $"{_config.TextBaseUrl}:countTokens?key={_config.ApiKey}";
-            var request = BuildGeminiRequest(messages, systemInstruction, generationConfig, safetySetting);
+            var request = BuildGeminiRequest(messages, generationConfig, safetySetting, systemInstruction);
 
             return await _apiRequester.PostAsync<GeminiCountTokenMessageResponse>(promptUrl, request);
         }
@@ -203,7 +203,7 @@ namespace DotnetGeminiSDK.Client
             if (string.IsNullOrEmpty(message)) throw new ArgumentException("Message cannot be empty.");
 
             var promptUrl = $"{_config.TextBaseUrl}:streamGenerateContent?key={_config.ApiKey}";
-            var request = BuildGeminiRequest(message, systemInstruction, generationConfig, safetySetting);
+            var request = BuildGeminiRequest(message, generationConfig, safetySetting, systemInstruction);
 
             return _apiRequester.PostStream(promptUrl, request, callback);
         }
@@ -234,7 +234,7 @@ namespace DotnetGeminiSDK.Client
             if (!messages.Any()) throw new ArgumentException("Messages cannot be empty.");
 
             var promptUrl = $"{_config.TextBaseUrl}:streamGenerateContent?key={_config.ApiKey}";
-            var request = BuildGeminiRequest(messages, systemInstruction, generationConfig, safetySetting);
+            var request = BuildGeminiRequest(messages, generationConfig, safetySetting, systemInstruction);
 
             return _apiRequester.PostStream(promptUrl, request, callback);
         }
@@ -428,9 +428,9 @@ namespace DotnetGeminiSDK.Client
             string message,
             string base64Image,
             string mimeType,
-            string? systemInstruction = null,
             GenerationConfig? generationConfig = null,
-            SafetySetting? safetySetting = null)
+            SafetySetting? safetySetting = null,
+            string? systemInstruction = null)
         {
             return new GeminiMessageRequest
             {
@@ -472,9 +472,9 @@ namespace DotnetGeminiSDK.Client
         /// <returns>A request containing GeminiMessageRequest</returns>
         private static GeminiMessageRequest BuildGeminiRequest(
             List<Content> messages,
-            string? systemInstruction = null,
             GenerationConfig? generationConfig = null,
-            SafetySetting? safetySetting = null)
+            SafetySetting? safetySetting = null,
+            string? systemInstruction = null)
         {
             return new GeminiMessageRequest
             {
@@ -509,9 +509,9 @@ namespace DotnetGeminiSDK.Client
         /// <returns>A request containing GeminiMessageRequest</returns>
         private static GeminiMessageRequest BuildGeminiRequest(
             string message,
-            string? systemInstruction = null,
             GenerationConfig? generationConfig = null,
-            SafetySetting? safetySetting = null)
+            SafetySetting? safetySetting = null,
+            string? systemInstruction = null)
         {
             return new GeminiMessageRequest
             {
@@ -546,9 +546,9 @@ namespace DotnetGeminiSDK.Client
         /// <returns></returns>
         private static GeminiMessageRequest BuildGeminiRequest(
             IEnumerable<string> messages,
-            string? systemInstruction = null,
             GenerationConfig? generationConfig = null,
-            SafetySetting? safetySetting = null)
+            SafetySetting? safetySetting = null,
+            string? systemInstruction = null)
         {
             var content = new Content
             {
