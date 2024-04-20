@@ -1,7 +1,9 @@
 using System;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using DotnetGeminiSDK.Config;
 using DotnetGeminiSDK.Requester.Interfaces;
 using Newtonsoft.Json;
 
@@ -14,9 +16,15 @@ namespace DotnetGeminiSDK.Requester
     {
         private readonly HttpClient _httpClient;
 
-        public ApiRequester()
+        public ApiRequester(GoogleGeminiConfig config)
         {
             _httpClient = new HttpClient();
+
+            if (config.BearerToken != null)
+            {
+                var header = new AuthenticationHeaderValue("Bearer", config.BearerToken);
+                _httpClient.DefaultRequestHeaders.Authorization = header;
+            }
         }
 
         /// <summary>

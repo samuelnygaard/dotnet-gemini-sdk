@@ -16,35 +16,35 @@ namespace DotnetGeminiSDK.Client.Interfaces
         Task<GeminiMessageResponse?> TextPrompt(
             string message,
             GenerationConfig? generationConfig = null,
-            SafetySetting? safetySetting = null,
+            List<SafetySetting>? safetySettings = null,
             string? systemInstruction = null
         );
 
         Task<GeminiMessageResponse?> TextPrompt(
             List<Content> messages,
             GenerationConfig? generationConfig = null,
-            SafetySetting? safetySetting = null,
+            List<SafetySetting>? safetySettings = null,
             string? systemInstruction = null
         );
 
         Task<GeminiCountTokenMessageResponse?> CountTokens(
             string message,
             GenerationConfig? generationConfig = null,
-            SafetySetting? safetySetting = null,
+            List<SafetySetting>? safetySettings = null,
             string? systemInstruction = null
         );
 
         Task<GeminiCountTokenMessageResponse?> CountTokens(
             List<string> messages,
             GenerationConfig? generationConfig = null,
-            SafetySetting? safetySetting = null,
+            List<SafetySetting>? safetySettings = null,
             string? systemInstruction = null
         );
 
         Task<GeminiCountTokenMessageResponse?> CountTokens(
             List<Content> messages,
             GenerationConfig? generationConfig = null,
-            SafetySetting? safetySetting = null,
+            List<SafetySetting>? safetySettings = null,
             string? systemInstruction = null
         );
 
@@ -52,7 +52,7 @@ namespace DotnetGeminiSDK.Client.Interfaces
             string message,
             Action<string?> callback,
             GenerationConfig? generationConfig = null,
-            SafetySetting? safetySetting = null,
+            List<SafetySetting>? safetySettings = null,
             string? systemInstruction = null
         );
 
@@ -60,7 +60,7 @@ namespace DotnetGeminiSDK.Client.Interfaces
             List<Content> messages,
             Action<string?> callback,
             GenerationConfig? generationConfig = null,
-            SafetySetting? safetySetting = null,
+            List<SafetySetting>? safetySettings = null,
             string? systemInstruction = null
         );
 

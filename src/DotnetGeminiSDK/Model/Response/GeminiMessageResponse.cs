@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace DotnetGeminiSDK.Model.Response
@@ -8,6 +9,8 @@ namespace DotnetGeminiSDK.Model.Response
         [JsonProperty("candidates")] public List<Candidate> Candidates { get; set; }
 
         [JsonProperty("promptFeedback")] public PromptFeedback PromptFeedback { get; set; }
+
+        public List<string> Texts => Candidates.SelectMany(x => x.Content.Parts.Select(y => y.Text)).ToList();
     }
 
     public class Candidate
